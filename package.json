@@ -1,0 +1,24 @@
+{
+  "name": "plot-spectrum",
+  "version": "0.0.1",
+  "description": "Plota gráficos a partir de uma porta serial.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/rexrod/plot-spectrum",
+  "keywords": [
+    "Electron",
+    "serialport",
+    "Arduino",
+    "graph",
+    "plot",
+    "spectrum"
+  ],
+  "author": "Rex Rodrigues",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "~1.6.2",
+    "serialport": ">=4.*"
+  }
+}
