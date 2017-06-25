@@ -19,6 +19,7 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "~1.6.2",
-    "serialport": ">=4.*"
+	"electron-rebuild": "",
+    "serialport": ""
   }
 }
