@@ -11,6 +11,16 @@ const url = require('url')
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
+var serialport = require("serialport");
+var five = require("johnny-five");
+var board = new five.Board({
+    port: new serialport("/dev/ttyACM0", {
+    baudrate: 9600,
+    buffersize: 1
+    })
+});
+
+
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 800, height: 600})
