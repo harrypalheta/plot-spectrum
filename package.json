@@ -20,7 +20,6 @@
   "devDependencies": {
     "electron": "~1.6.2",
     "electron-rebuild": "^1.5.11",
-    "johnny-five": "",
     "serialport": ""
   }
 }

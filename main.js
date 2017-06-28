@@ -11,14 +11,25 @@ const url = require('url')
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
-var serialport = require("serialport");
-var five = require("johnny-five");
-var board = new five.Board({
-    port: new serialport("/dev/ttyACM0", {
-    baudrate: 9600,
-    buffersize: 1
-    })
+
+var SerialPort = require("serialport");
+//var SerialPort = serialport.SerialPort;
+
+var myPort = new SerialPort("/dev/ttyACM0", {
+  baudRate: 9600,
+    parser: SerialPort.parsers.readline("\r\n")
 });
+
+myPort.on('open',onOpen);
+myPort.on('data',onData);
+
+function onOpen(){
+console.log("Open connection");
+}
+
+function onData(data){
+    console.log(data);
+}
 
 
 function createWindow () {
