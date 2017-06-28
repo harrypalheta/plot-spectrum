@@ -20,6 +20,7 @@
   "devDependencies": {
     "electron": "~1.6.2",
     "electron-rebuild": "^1.5.11",
-    "serialport": ""
+    "serialport": "",
+    "chart.js": ""
   }
 }
