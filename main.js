@@ -7,31 +7,9 @@ const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
 
-var Chart = require("chart.js");
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
-
-
-var SerialPort = require("serialport");
-//var SerialPort = serialport.SerialPort;
-
-var myPort = new SerialPort("/dev/ttyACM0", {
-  baudRate: 9600,
-    parser: SerialPort.parsers.readline("\r\n")
-});
-
-myPort.on('open',onOpen);
-myPort.on('data',onData);
-
-function onOpen(){
-console.log("Open connection");
-}
-
-function onData(data){
-    console.log(data);
-}
-
 
 function createWindow () {
   // Create the browser window.

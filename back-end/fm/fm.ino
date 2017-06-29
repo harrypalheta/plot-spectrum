@@ -154,7 +154,8 @@ StaticJsonBuffer<200> jsonBuffer;
     }
 
      Serial.println();
-     root.prettyPrintTo(Serial);  
+     root.printTo(Serial);
+     //root.prettyPrintTo(Serial);  
     
 
 }
