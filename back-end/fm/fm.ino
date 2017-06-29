@@ -56,7 +56,7 @@ void loop () {
 
     Serial.println(current_freq + ";" + signal_level);
    
-    delay (500);
+   // delay (500);
   }
    
    frequency += 0.1; 
