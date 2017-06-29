@@ -80,11 +80,11 @@ function onData(data){
       
         frequencia.push(myData[0]);
         potencia.push(myData[1]);
-        //
+        console.log(myData);
     }
     
     if ( data.replace("\n","") == "BACK"){
-        
+        myChart.clear();
         potencia = [];
         frequencia = [];
     }
