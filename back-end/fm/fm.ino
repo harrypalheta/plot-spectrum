@@ -59,7 +59,7 @@ void loop () {
     delay (500);
   }
    
-   frequency += 1; 
+   frequency += 0.1; 
    Radio.set_frequency(frequency);  
 
 

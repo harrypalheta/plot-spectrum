@@ -2,15 +2,15 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>plot-spectrum</title>
     <script data-main="main.js" src="main.js"></script>
   </head>
   <body>
-    <h1>Hello World!</h1>
+    <h1>Plot-Spectrum v0.1</h1>
     <!-- All of the Node.js APIs are available in this renderer process. -->
     We are using Node.js <script>document.write(process.versions.node)</script>,
     Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    Electron <script>document.write(process.versions.electron)</script>.
   <canvas id="myChart" width="400" height="400"></canvas>
 <script>
     var myData;
@@ -27,7 +27,7 @@ var myChart = new Chart(ctx, {
     data: {
         labels: frequencia,
         datasets: [{
-            label: '# of Votes',
+            label: '# Spectrum',
 	        data: potencia,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -62,7 +62,7 @@ var myChart = new Chart(ctx, {
 var SerialPort = require("serialport");
 //var SerialPort = serialport.SerialPort;
 
-var myPort = new SerialPort("/dev/ttyACM1", {
+var myPort = new SerialPort("/dev/ttyACM0", {
   baudRate: 9600,
     parser: SerialPort.parsers.readline()
 });
