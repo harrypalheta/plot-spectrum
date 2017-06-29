@@ -13,54 +13,22 @@
     and Electron <script>document.write(process.versions.electron)</script>.
   <canvas id="myChart" width="400" height="400"></canvas>
 <script>
-var myData = {};
+    var myData;
+    var frequencia = [];
+    var potencia = [];
 
 var Chart = require("chart.js");
-
-var SerialPort = require("serialport");
-//var SerialPort = serialport.SerialPort;
-
-var myPort = new SerialPort("/dev/ttyACM1", {
-  baudRate: 9600,
-    parser: SerialPort.parsers.readline()
-});
-
-myPort.on('open',onOpen);
-myPort.on('data',onData);
-
-function onOpen(){
-console.log("Open connection");
-}
-
-function onData(data){
-myData = JSON.parse("["+data+"]");
-
-//addData(Chart,'potencia',myData.potencia);
-   // var dados = JSON.parse(data);
-  // var dados = JSON.parse(data);
-   //var obj = eval("("+dados+")");
-   // console.log(dados.potencia);
-   console.log(myData);
-  //  console.log(data.potencia);
-}
-
-function addData(chart, label, data) {
-    chart.data.labels.push(label);
-    chart.data.datasets.forEach((dataset) => {
-        dataset.data.push(data);
-    });
-    chart.update();
-}
-
-var ctx = document.getElementById("myChart");
+    
+    var ctx = document.getElementById("myChart").getContext("2d");
+//var ctx = document.getElementById("myChart");
  //   console.log(ctx);
 var myChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'line',
     data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        labels: frequencia,
         datasets: [{
             label: '# of Votes',
-	    data: [4,12,13,3,4,1,6],
+	        data: potencia,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -90,6 +58,41 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+
+var SerialPort = require("serialport");
+//var SerialPort = serialport.SerialPort;
+
+var myPort = new SerialPort("/dev/ttyACM1", {
+  baudRate: 9600,
+    parser: SerialPort.parsers.readline()
+});
+
+myPort.on('open',onOpen);
+myPort.on('data',onData);
+
+function onOpen(){
+console.log("Open connection");
+}
+
+function onData(data){
+     myData =  data.replace("\n","").split(";");
+    if (data.replace("\n","").split(";").length == 2){
+      
+        frequencia.push(myData[0]);
+        potencia.push(myData[1]);
+        //
+    }
+    
+    if ( data.replace("\n","") == "BACK"){
+        
+        potencia = [];
+        frequencia = [];
+    }
+    
+    myChart.update();
+
+}
+
 </script>
 
   </body>
