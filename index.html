@@ -5,13 +5,15 @@
     <title>plot-spectrum</title>
     <script data-main="main.js" src="main.js"></script>
   </head>
-  <body style="background: #252429;">
-    <h1>Plot-Spectrum v0.0.1</h1>
+  <body style="background: #101010;">
+    <h1 style="color: white;">Plot-Spectrum v0.0.1</h1>
+<p style="color: white;">
     <!-- All of the Node.js APIs are available in this renderer process. -->
     We are using Node.js <script>document.write(process.versions.node)</script>,
     Chromium <script>document.write(process.versions.chrome)</script>,
     Electron <script>document.write(process.versions.electron)</script>.
-  <canvas id="myChart" width="400" height="400"></canvas>
+</p>  
+<canvas id="myChart" width="400" height="400"></canvas>
 <script>
     var myData;
     var frequencia = [];
@@ -32,7 +34,7 @@ var Chart = require("chart.js");
             label: '# Spectrum',
 	        data: potencia,
             backgroundColor: [
-                'rgba(100, 221, 23, 0.05)'
+                'rgba(100, 221, 23, 0.2)'
             ],
             borderColor: [
                 'rgba(0, 200, 83,1.0)'
@@ -44,11 +46,30 @@ var Chart = require("chart.js");
     options: {
         scales: {
             yAxes: [{
+		gridLines: {
+		  	display: true ,
+  			color: "#FFFFFF"
+		},
                 ticks: {
-                    beginAtZero:true
+			fontColor: "white",
+                    	beginAtZero:true
                 }
-            }]
-        }
+            }],
+	    xAxes: [{
+		gridLines: {
+			display: true,
+			color: '#FFFFFF'
+		},
+		ticks: {
+			fontColor: "white"
+			}
+		}]
+        },
+	legend:{
+		labels:{
+			fontColor: "white"
+		}
+	}
     }
 };
 
