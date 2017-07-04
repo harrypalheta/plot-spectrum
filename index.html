@@ -5,8 +5,8 @@
     <title>plot-spectrum</title>
     <script data-main="main.js" src="main.js"></script>
   </head>
-  <body>
-    <h1>Plot-Spectrum v0.1</h1>
+  <body style="background: #252429;">
+    <h1>Plot-Spectrum v0.0.1</h1>
     <!-- All of the Node.js APIs are available in this renderer process. -->
     We are using Node.js <script>document.write(process.versions.node)</script>,
     Chromium <script>document.write(process.versions.chrome)</script>,
@@ -16,34 +16,27 @@
     var myData;
     var frequencia = [];
     var potencia = [];
-
+    var count = 0;
+    var inicio;
 var Chart = require("chart.js");
     
     var ctx = document.getElementById("myChart").getContext("2d");
-//var ctx = document.getElementById("myChart");
- //   console.log(ctx);
-var myChart = new Chart(ctx, {
+
+    config = {
     type: 'line',
     data: {
+        
         labels: frequencia,
         datasets: [{
+           
             label: '# Spectrum',
 	        data: potencia,
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgba(100, 221, 23, 0.05)'
             ],
             borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+                'rgba(0, 200, 83,1.0)'
+    
             ],
             borderWidth: 1
         }]
@@ -57,15 +50,16 @@ var myChart = new Chart(ctx, {
             }]
         }
     }
-});
+};
 
-var SerialPort = require("serialport");
-//var SerialPort = serialport.SerialPort;
+    var myChart = new Chart(ctx, config);
 
-var myPort = new SerialPort("/dev/ttyACM0", {
-  baudRate: 9600,
-    parser: SerialPort.parsers.readline()
-});
+    var SerialPort = require("serialport");
+
+    var myPort = new SerialPort("/dev/ttyACM0", {
+        baudRate: 9600,
+        parser: SerialPort.parsers.readline()
+    });
 
 myPort.on('open',onOpen);
 myPort.on('data',onData);
@@ -75,20 +69,32 @@ console.log("Open connection");
 }
 
 function onData(data){
-     myData =  data.replace("\n","").split(";");
-    if (data.replace("\n","").split(";").length == 2){
-      
-        frequencia.push(myData[0]);
-        potencia.push(myData[1]);
-        console.log(myData);
+    // Separa a a potencia e frequecia
+    myData =  data.replace("\n","").split(";");
+    // Controla o inicio da estação
+    // O valor 88.00, estático será setado pelo usuário
+    if ( myData[0] == "88.00"){
+        inicio = true;
     }
-    
+    // verifica se está con os dois valores e foi iniciado pela frequencia de inicio
+    if (data.replace("\n","").split(";").length == 2 && inicio ){
+        frequencia[count] = myData[0];
+        potencia[count] = myData[1];
+        count++;
+    }
+    // Zera a contagem
     if ( data.replace("\n","") == "BACK"){
-        myChart.clear();
-        potencia = [];
-        frequencia = [];
+        count = 0;
+        inicio = false;
     }
     
+    // Recebe a potência setada 
+    myChart.data.datasets[0].data = potencia;
+    
+    // Recebe a frequência setada
+    myChart.data.labels = frequencia;
+    
+    // Atualiza os dados recebidos
     myChart.update();
 
 }
