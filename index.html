@@ -1,126 +1,41 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>plot-spectrum</title>
-    <script data-main="main.js" src="main.js"></script>
-  </head>
-  <body style="background: #101010;">
-    <h1 style="color: white;">Plot-Spectrum v0.0.1</h1>
-<p style="color: white;">
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    Electron <script>document.write(process.versions.electron)</script>.
-</p>  
-<canvas id="myChart" width="400" height="400"></canvas>
-<script>
-    var myData;
-    var frequencia = [];
-    var potencia = [];
-    var count = 0;
-    var inicio;
-var Chart = require("chart.js");
-    
-    var ctx = document.getElementById("myChart").getContext("2d");
 
-    config = {
-    type: 'line',
-    data: {
-        
-        labels: frequencia,
-        datasets: [{
-           
-            label: '# Spectrum',
-	        data: potencia,
-            backgroundColor: [
-                'rgba(100, 221, 23, 0.2)'
-            ],
-            borderColor: [
-                'rgba(0, 200, 83,1.0)'
-    
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-		gridLines: {
-		  	display: true ,
-  			color: "#FFFFFF"
-		},
-                ticks: {
-			fontColor: "white",
-                    	beginAtZero:true
-                }
-            }],
-	    xAxes: [{
-		gridLines: {
-			display: true,
-			color: '#FFFFFF'
-		},
-		ticks: {
-			fontColor: "white"
-			}
-		}]
-        },
-	legend:{
-		labels:{
-			fontColor: "white"
-		}
-	}
-    }
-};
+<head>
+  <meta charset="UTF-8">
+  <title>Plot Spectrum</title>
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="index.css">
+  <script src="js/core.js"></script>
+</head>
 
-    var myChart = new Chart(ctx, config);
+<body>
+  <div class="container h-100 mw-100">
+    <div class="row justify-content-center h-100">
+      <div class="col-7 graph h-100">
+        <div class="graph-plot h-75">
+          <canvas id="myChart" width="400" height="400" class="h-100 w-100"></canvas>
+        </div>
+        <div w3-include-html="view/graph-buttons.html" class="graph-buttons h-25 row"></div>
+      </div>
+      <div class="col-3 configurations h-100 border border-white">
+        <div id="freqspan" w3-include-html="view/freqspan.html" class="h-100 none active"></div>
+        <div id="amplitude" w3-include-html="view/amplitude.html" class="h-100 none"></div>
+        <div id="bandwidth" w3-include-html="view/bandwidth.html" class="h-100 none"></div>
+        <div id="markers" w3-include-html="view/markers.html" class="h-100 none"></div>
+      </div>
+      <div class="col-2 side-buttons">
+        <div w3-include-html="view/side-buttons.html" class="h-100 mw-100 buttons"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // load templates
+    includeHTML();
+  </script>
+  <!-- Post Scripts -->
+  <script src="js/graphicAndData.js"></script>
+  <script src="renderer.js"></script>
+</body>
 
-    var SerialPort = require("serialport");
-
-    var myPort = new SerialPort("/dev/ttyACM0", {
-        baudRate: 9600,
-        parser: SerialPort.parsers.readline()
-    });
-
-myPort.on('open',onOpen);
-myPort.on('data',onData);
-
-function onOpen(){
-console.log("Open connection");
-}
-
-function onData(data){
-    // Separa a a potencia e frequecia
-    myData =  data.replace("\n","").split(";");
-    // Controla o inicio da estação
-    // O valor 88.00, estático será setado pelo usuário
-    if ( myData[0] == "88.00"){
-        inicio = true;
-    }
-    // verifica se está con os dois valores e foi iniciado pela frequencia de inicio
-    if (data.replace("\n","").split(";").length == 2 && inicio ){
-        frequencia[count] = myData[0];
-        potencia[count] = myData[1];
-        count++;
-    }
-    // Zera a contagem
-    if ( data.replace("\n","") == "BACK"){
-        count = 0;
-        inicio = false;
-    }
-    
-    // Recebe a potência setada 
-    myChart.data.datasets[0].data = potencia;
-    
-    // Recebe a frequência setada
-    myChart.data.labels = frequencia;
-    
-    // Atualiza os dados recebidos
-    myChart.update();
-
-}
-
-</script>
-
-  </body>
 </html>

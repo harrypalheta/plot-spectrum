@@ -1,0 +1,69 @@
+<div class="menu font-weight-bold border border-white d-flex justify-content-center align-items-center markers">
+  Marcadores
+</div>
+<div class="blocks">
+  <div class="block-1 h-25 border border-white">
+    <div class="h-25 font-weight-bold d-flex justify-content-center align-items-center">
+      Marcadores Pico
+    </div>
+    <div class="h-25 d-flex justify-content-center align-items-center">
+      <span class="badge badge-pill badge-danger">A</span>
+      <span class="badge badge-pill badge-danger">B</span>
+    </div>
+    <div class="h-50 d-flex justify-content-center align-items-center px-5">
+      <input type="text" class="form-control markers-input" id="fcentral" value="ON">
+    </div>
+  </div>
+  <div class="block-2 h-25 border border-white">
+    <div class="h-25 font-weight-bold d-flex justify-content-center align-items-center">
+      Ao Centro
+    </div>
+    <div class="h-75 d-flex justify-content-center align-items-center  px-5">
+      <input type="text" class="form-control markers-input" id="bandwidth" value="Centralizar">
+    </div>
+  </div>
+  <div class="block-3 h-25 border border-white">
+    <div class="h-25 font-weight-bold d-flex justify-content-center align-items-center">
+      Limite
+    </div>
+    <div class="h-25 d-flex justify-content-center align-items-center  px-5">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control markers-input" value="-50" id="limit" number>
+        <div class="input-group-append">
+          <span class="input-group-text">dBm</span>
+        </div>
+      </div>
+      <!-- <input type="text" class="form-control markers-input" id="limit" value="-50 dBm"> -->
+    </div>
+    <div class="h-25 font-weight-bold d-flex justify-content-center align-items-center">
+      Desvio
+    </div>
+    <div class="h-25 d-flex justify-content-center align-items-center  px-5">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control markers-input" value="30.0" id="detour" number>
+        <div class="input-group-append">
+          <span class="input-group-text">dBm</span>
+        </div>
+      </div>
+      <!-- <input type="text" class="form-control markers-input" id="finitial" value="30.0 dBm"> -->
+    </div>
+  </div>
+  <div class="block-4 h-25 border border-white">
+    <div class="h-25 font-weight-bold d-flex justify-content-center align-items-center">
+      Marcadores Manuais
+    </div>
+    <div class="h-75 d-flex justify-content-center align-items-center  px-5">
+      <!-- Normal switch -->
+      <!-- <div class="form-group">
+        <span class="switch">
+          <input type="checkbox" class="switch" id="switch-normal">
+          <label for="switch-normal">Normal switch</label>
+        </span>
+      </div> -->
+      <input type="text" class="form-control markers-input" id="manualMarkers" value="ON">
+    </div>
+    <!-- <div class="h-50 d-flex justify-content-center align-items-center">
+      <input type="text" class="form-control markers-input" id="ffinal" value="Arraste os marcadores" disabled>
+    </div> -->
+  </div>
+</div>

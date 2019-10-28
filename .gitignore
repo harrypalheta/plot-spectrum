@@ -1,1 +1,15 @@
-node_modules/
+node_modules
+files/abntex2-modelo-include-comandos.aux
+files/abntex2-modelo-trabalho-academico.aux
+files/abntex2-modelo-trabalho-academico.bbl
+files/abntex2-modelo-trabalho-academico.blg
+files/abntex2-modelo-trabalho-academico.brf
+files/abntex2-modelo-trabalho-academico.idx
+files/abntex2-modelo-trabalho-academico.lof
+files/abntex2-modelo-trabalho-academico.log
+files/abntex2-modelo-trabalho-academico.loq
+files/abntex2-modelo-trabalho-academico.lot
+files/abntex2-modelo-trabalho-academico.pdf
+files/abntex2-modelo-trabalho-academico.synctex.gz
+files/abntex2-modelo-trabalho-academico.toc
+

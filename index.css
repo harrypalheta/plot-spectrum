@@ -1,0 +1,178 @@
+html, body {
+	height: 100%;
+}
+
+.graph {
+  background: #222222;
+  color: white;
+}
+.graph .graph-buttons{
+  background: #333333;
+	font-size: 70%;
+}
+.graph .graph-buttons .rf{
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+.graph .graph-buttons .rf .rf-content{
+  border: 2px solid white;
+	border-radius: 2em;
+	margin-left: 0px;
+	background-color: #1A1A1A;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.graph .graph-buttons .cf{
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+.graph .graph-buttons .cf .cf-content{
+  border: 2px solid white;
+	border-radius: 2em;
+	background-color: #1A1A1A;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.graph .graph-buttons .rbw{
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+.graph .graph-buttons .rbw .rbw-content{
+  border: 2px solid white;
+	border-radius: 2em;
+	background-color: #1A1A1A;
+	display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.configurations {
+  background: #1A1A1A;
+  color: white;
+	padding: 0;
+}
+
+.configurations .menu {
+	height: 10%;
+}
+.configurations .blocks {
+	height: 90%;
+}
+
+.configurations .blocks input{
+	/* margin-left: 20px;
+	margin-right: 20px; */
+	border-radius: 2em;
+	text-align: center;
+}
+
+.input-group-text {
+	border-bottom-right-radius: 6em !important;
+	border-top-right-radius: 6em !important;
+	min-width: 59px;
+}
+.side-buttons{
+	background: #333333;
+	color: white;
+}
+.buttons {
+	display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.button-individual{
+	margin-bottom: 20px;
+	margin-top: 20px;
+}
+.button-individual button{
+	width: 105px;
+	height: 38px;
+}
+
+.freqspan{
+	color: white;
+	background-color: #006600;
+}
+
+.freqspan-input{
+	color: white;
+	background-color: #00AA00;
+}
+.amplitude{
+	color: black;
+	background-color: #FFC107;
+}
+.amplitude-input{
+	color: black;
+	background-color: #ffdd2c;
+}
+.bandwidth{
+	color: white;
+	background-color: #CC0000;
+}
+.bandwidth-input{
+	color: white;
+	background-color: #cc3636;
+}
+.markers{
+color: white;
+	background-color: #0000CC;
+}
+.markers-input{
+	color: white;
+	background-color: #007BFF;
+}
+#rbw{
+	border-radius: 1.25rem;
+}
+.badge {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+}
+
+.badge-pill {
+    padding-right: .6em;
+    padding-left: .6em;
+    border-radius: 10rem;
+}
+
+.badge-orange {
+    color: #fff;
+    background-color: #FF8000;
+}
+.text-orange{
+	color: #FF8000;
+}
+
+.none {
+	display: none;
+}
+
+.active{
+    display: block !important;
+}
+
+@media (min-width: 768px){
+    max-width: unset !important;
+}
+
+@media (min-width: 576px) {
+    max-width: unset !important;
+}

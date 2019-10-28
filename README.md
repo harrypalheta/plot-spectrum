@@ -32,12 +32,20 @@ Note: If you're using Linux Bash for Windows, [see this guide](https://www.howto
 
 
 ## How does it work?
+Install the dependencies (for Ubuntu):
+
+```bash
+sudo apt install build-essential
+```
 
 Install the package with --save-dev:
+
 ```bash
 npm install --save-dev electron-rebuild
 ```
+
 Then, whenever you install a new npm package, rerun electron-rebuild:
+
 ```bash
 $(npm bin)/electron-rebuild
 ```
