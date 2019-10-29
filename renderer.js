@@ -2,21 +2,38 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 
-addEventListener("click", function(e) {
+addEventListener("click", function (e) {
 
   // permite ações somente se for botões
   if (e.target.localName === "button") {
-    // console.log(e);
     const oldElement = document.querySelectorAll('.configurations .active');
     const id = e.target.id;
-    let newElement = document.querySelectorAll('.configurations div#' + id);
-    removeClass(oldElement[0], 'active');
-    addClass(newElement[0], 'active');
+    const panelOptions = ['freqspan', 'amplitude', 'bandwidth', 'markers']
+    const onOffOption = ['btnOnOff']
+    
+    if (panelOptions.includes(id)) {
+      let newElement = document.querySelectorAll('.configurations div#' + id);
+      removeClass(oldElement[0], 'active');
+      addClass(newElement[0], 'active');
+    }
+
+    if (onOffOption.includes(id)) {
+      let btnOnOff = e.target;
+      if (btnOnOff.innerText === "LIGAR") {
+        removeClass(btnOnOff, 'btn-outline-success');
+        addClass(btnOnOff, 'btn-outline-danger');
+        btnOnOff.innerHTML = "DESLIGAR";
+      } else {
+        removeClass(btnOnOff, 'btn-outline-danger');
+        addClass(btnOnOff, 'btn-outline-success');
+        btnOnOff.innerHTML = "LIGAR";
+      }
+    }
   }
 
 });
 
-addEventListener("keypress", function(e) {
+addEventListener("keypress", function (e) {
   let elementWithAttrNumber = e.target.attributes.number;
 
   // NUMBERS attributes
@@ -34,3 +51,4 @@ addEventListener("keypress", function(e) {
   }
 
 });
+

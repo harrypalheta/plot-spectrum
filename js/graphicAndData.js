@@ -102,30 +102,45 @@ function onData(data) {
 }
 
 // Carrega após os templates
-(function(){
-setTimeout(function () {
+(function () {
+  setTimeout(function () {
     var FCENTRAL = 98;
     var fcentral = document.getElementById("fcentral");
     fcentral.value = FCENTRAL;
-   
+
     var BANDWIDTH = 20;
     var bandwidth = document.getElementById("bandwidth");
     bandwidth.value = BANDWIDTH;
-   
+
     var FINITIAL = 88;
     var finitial = document.getElementById("finitial");
     finitial.value = FINITIAL;
-  
+
     var FFINAL = 108;
     var ffinal = document.getElementById("ffinal");
     ffinal.value = FFINAL;
 
-    fcentral.addEventListener("keypress", event =>  {
-      if (event.keyCode === 13){
+    fcentral.addEventListener("keypress", event => {
+      if (event.keyCode === 13) {
         console.log(event.target.value)
-      event.target.style.background = "red"
+        event.target.style.background = "red"
       }
     }, true);
-}, 500);
+
+    // Botão de Ligar e Desligar
+    // var buttonOnOff = document.getElementById('btnOnOff');
+    // buttonOnOff.addEventListener('click', function (event) {
+    //   if (buttonOnOff.innerHTML == "LIGAR") {
+    //     removeClass(buttonOnOff, 'btn-outline-success');
+    //     addClass(buttonOnOff, 'btn-outline-danger');
+    //     buttonOnOff.innerHTML = "DESLIGAR";
+    //   } else {
+    //     removeClass(buttonOnOff, 'btn-outline-danger');
+    //     addClass(buttonOnOff, 'btn-outline-success');
+    //     buttonOnOff.innerHTML = "LIGAR";
+    //   }
+    // });
+    
+  }, 500);
 
 })();

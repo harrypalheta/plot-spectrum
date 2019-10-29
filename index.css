@@ -170,9 +170,13 @@ color: white;
 }
 
 @media (min-width: 768px){
-    max-width: unset !important;
+	body {
+		max-width: unset !important;
+	}
 }
 
 @media (min-width: 576px) {
-    max-width: unset !important;
+    body {
+		max-width: unset !important;
+	}
 }
