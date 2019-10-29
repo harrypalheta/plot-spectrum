@@ -4,6 +4,7 @@ var potencia = [];
 var count = 0;
 var inicio;
 var Chart = require("chart.js");
+var PORT = "/dev/ttyACM0";
 
 var ctx = document.getElementById("myChart").getContext("2d");
 config = {
@@ -57,15 +58,25 @@ config = {
 var myChart = new Chart(ctx, config);
 var SerialPort = require("serialport");
 const Readline = require('@serialport/parser-readline');
-var port = new SerialPort("/dev/ttyACM0", {
-  baudRate: 9600,
-  // parser: SerialPort.parsers.readline()
-});
+var port;
 
-const parser = new Readline();
-port.pipe(parser);
-parser.on('open', onOpen);
-parser.on('data', onData);
+function startPort() {
+  port = new SerialPort(PORT, {
+    baudRate: 9600,
+    // parser: SerialPort.parsers.readline()
+  });
+  const parser = new Readline();
+  port.pipe(parser);
+  parser.on('open', onOpen);
+  parser.on('data', onData);
+}
+
+function stopPort() {
+  port.pause();
+}
+
+
+
 
 function onOpen() {
   console.log("Open connection");
@@ -140,7 +151,7 @@ function onData(data) {
     //     buttonOnOff.innerHTML = "LIGAR";
     //   }
     // });
-    
+
   }, 500);
 
 })();

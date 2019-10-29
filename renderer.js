@@ -23,10 +23,12 @@ addEventListener("click", function (e) {
         removeClass(btnOnOff, 'btn-outline-success');
         addClass(btnOnOff, 'btn-outline-danger');
         btnOnOff.innerHTML = "DESLIGAR";
+        startPort();
       } else {
         removeClass(btnOnOff, 'btn-outline-danger');
         addClass(btnOnOff, 'btn-outline-success');
         btnOnOff.innerHTML = "LIGAR";
+        stopPort();
       }
     }
   }
