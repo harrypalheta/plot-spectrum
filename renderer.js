@@ -19,15 +19,15 @@ addEventListener("click", function (e) {
 
     if (onOffOption.includes(id)) {
       let btnOnOff = e.target;
-      if (btnOnOff.innerText === "LIGAR") {
+      if (btnOnOff.innerText === "INICIAR") {
         removeClass(btnOnOff, 'btn-outline-success');
         addClass(btnOnOff, 'btn-outline-danger');
-        btnOnOff.innerHTML = "DESLIGAR";
+        btnOnOff.innerHTML = "PARAR";
         startPort();
       } else {
         removeClass(btnOnOff, 'btn-outline-danger');
         addClass(btnOnOff, 'btn-outline-success');
-        btnOnOff.innerHTML = "LIGAR";
+        btnOnOff.innerHTML = "INICIAR";
         stopPort();
       }
     }

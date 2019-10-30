@@ -1,6 +1,6 @@
 var myData;
-var frequencia = [];
-var potencia = [];
+var frequencies = [];
+var powers = [];
 var count = 0;
 var inicio;
 var Chart = require("chart.js");
@@ -10,11 +10,11 @@ config = {
   type: 'line',
   data: {
 
-    labels: frequencia,
+    labels: frequencies,
     datasets: [{
 
       label: '# Spectrum',
-      data: potencia,
+      data: powers,
       backgroundColor: [
         'rgba(100, 221, 23, 0.2)'
       ],
@@ -54,6 +54,7 @@ config = {
     }
   }
 };
+
 var myChart = new Chart(ctx, config);
 var SerialPort = require("serialport");
 const Readline = require('@serialport/parser-readline');
@@ -73,10 +74,15 @@ SerialPort.list(function (err, results) {
   // console.log(ports);
 });
 
+function clean(){
+  powers = [];
+  frequencies = [];
+}
+
 function startPort() {
+  
   let e = document.getElementById("port");
   let strPort = e.options[e.selectedIndex].value
-
   port = new SerialPort(strPort, {
     baudRate: 9600,
   });
@@ -95,33 +101,43 @@ function onOpen() {
 }
 
 function onData(data) {
-  // Separa a a potencia e frequecia
+  // Separa a a powers e frequecia
   myData = data.trim().split(";");
+  let currentFrequency = myData[0];
+  let currentPower = myData[1];
+  let finitialValue = finitial.value;
+  let ffinalValue = ffinal.value;
   // Controla o inicio da estação
   // O valor 88.00, estático será setado pelo usuário
-  if (myData[0] == "88.00") {
+  
+  if (+currentFrequency == +finitialValue) {
     inicio = true;
   }
-  // verifica se está con os dois valores e foi iniciado pela frequencia de inicio
-  if (data.replace("\n", "").split(";").length == 2 && inicio) {
-    frequencia[count] = myData[0];
-    potencia[count] = myData[1];
+  // verifica se está con os dois valores e foi iniciado pela frequencies de inicio
+  if (currentFrequency && currentPower && inicio) {
+    frequencies[count] = currentFrequency;
+    powers[count] = currentPower;
     count++;
   }
   // Zera a contagem
-  if (myData[0].trim() == "BACK") {
+  if (+currentFrequency == +ffinalValue) {
     count = 0;
     inicio = false;
   }
 
-  // Recebe a potência setada
-  myChart.data.datasets[0].data = potencia;
+ updateChart();
+}
 
-  // Recebe a frequência setada
-  myChart.data.labels = frequencia;
+function updateChart(){
+ // Recebe a potência setada
+ myChart.data.datasets[0].data = powers;
 
-  // Atualiza os dados recebidos
-  myChart.update();
+ // Recebe a frequência setada
+ myChart.data.labels = frequencies;
+
+ // Atualiza os dados recebidos
+ myChart.update();
+
 }
 
 // Carrega após os templates
@@ -143,6 +159,28 @@ function onData(data) {
     var ffinal = document.getElementById("ffinal");
     ffinal.value = FFINAL;
 
+    finitial.addEventListener("keypress", event => {
+      if (event.keyCode === 13) {
+        let bandwidthValue = new Number(bandwidth.value);
+        let finitialValue = new Number(event.target.value);
+
+        ffinal.value = finitialValue + bandwidthValue;
+        fcentral.value = finitialValue + bandwidthValue / 2;
+        clean()
+      }
+    }, true);
+
+    ffinal.addEventListener("keypress", event => {
+      if (event.keyCode === 13) {
+        let bandwidthValue = new Number(bandwidth.value);
+        let ffinalValue = new Number(event.target.value);
+
+        finitial.value = ffinalValue - bandwidthValue;
+        fcentral.value = ffinalValue - bandwidthValue / 2;
+        clean()
+      }
+    }, true);
+
     fcentral.addEventListener("keypress", event => {
       if (event.keyCode === 13) {
         let bandwidthValue = new Number(bandwidth.value);
@@ -151,6 +189,7 @@ function onData(data) {
         displayFCentral.textContent = event.target.value + " MHz";
         finitial.value = fcentralValue - bandwidthValue / 2;
         ffinal.value = fcentralValue + bandwidthValue / 2;
+        clean()
       }
     }, true);
 
@@ -162,6 +201,7 @@ function onData(data) {
         finitial.value = fcentralValue - bandwidthValue / 2;
         ffinal.value = fcentralValue + bandwidthValue / 2;
         displayBandwith.textContent = bandwidthValue + " MHz";
+        clean()
       }
     }, true);
 
