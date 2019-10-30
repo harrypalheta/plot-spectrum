@@ -4,7 +4,6 @@ var potencia = [];
 var count = 0;
 var inicio;
 var Chart = require("chart.js");
-var PORT = "/dev/ttyACM0";
 
 var ctx = document.getElementById("myChart").getContext("2d");
 config = {
@@ -60,10 +59,26 @@ var SerialPort = require("serialport");
 const Readline = require('@serialport/parser-readline');
 var port;
 
+SerialPort.list(function (err, results) {
+  if (err) {
+    throw err;
+  }
+  let ports = results.map(x => x.comName)
+  setTimeout(() => {
+    let selectBox = document.getElementById("port");
+    for (var i = 0, l = ports.length; i < l; i++) {
+      selectBox.options.add(new Option(ports[i], ports[i]));
+    }
+  }, 500)
+  // console.log(ports);
+});
+
 function startPort() {
-  port = new SerialPort(PORT, {
+  let e = document.getElementById("port");
+  let strPort = e.options[e.selectedIndex].value
+
+  port = new SerialPort(strPort, {
     baudRate: 9600,
-    // parser: SerialPort.parsers.readline()
   });
   const parser = new Readline();
   port.pipe(parser);
@@ -72,11 +87,8 @@ function startPort() {
 }
 
 function stopPort() {
-  port.pause();
+  port.close();
 }
-
-
-
 
 function onOpen() {
   console.log("Open connection");
@@ -133,24 +145,17 @@ function onData(data) {
 
     fcentral.addEventListener("keypress", event => {
       if (event.keyCode === 13) {
-        console.log(event.target.value)
-        event.target.style.background = "red"
+        let displayFCentral = document.getElementById("displayFCentral")
+        displayFCentral.textContent = event.target.value + " MHz";
       }
     }, true);
 
-    // Botão de Ligar e Desligar
-    // var buttonOnOff = document.getElementById('btnOnOff');
-    // buttonOnOff.addEventListener('click', function (event) {
-    //   if (buttonOnOff.innerHTML == "LIGAR") {
-    //     removeClass(buttonOnOff, 'btn-outline-success');
-    //     addClass(buttonOnOff, 'btn-outline-danger');
-    //     buttonOnOff.innerHTML = "DESLIGAR";
-    //   } else {
-    //     removeClass(buttonOnOff, 'btn-outline-danger');
-    //     addClass(buttonOnOff, 'btn-outline-success');
-    //     buttonOnOff.innerHTML = "LIGAR";
-    //   }
-    // });
+    bandwidth.addEventListener("keypress", event => {
+      if (event.keyCode === 13) {
+        let displayFCentral = document.getElementById("displayBandwith")
+        displayFCentral.textContent = event.target.value + " MHz";
+      }
+    }, true);
 
   }, 500);
 
