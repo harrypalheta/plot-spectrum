@@ -145,15 +145,23 @@ function onData(data) {
 
     fcentral.addEventListener("keypress", event => {
       if (event.keyCode === 13) {
+        let bandwidthValue = new Number(bandwidth.value);
+        let fcentralValue = new Number(event.target.value);
         let displayFCentral = document.getElementById("displayFCentral")
         displayFCentral.textContent = event.target.value + " MHz";
+        finitial.value = fcentralValue - bandwidthValue / 2;
+        ffinal.value = fcentralValue + bandwidthValue / 2;
       }
     }, true);
 
     bandwidth.addEventListener("keypress", event => {
       if (event.keyCode === 13) {
-        let displayFCentral = document.getElementById("displayBandwith")
-        displayFCentral.textContent = event.target.value + " MHz";
+        let bandwidthValue = new Number(event.target.value);
+        let fcentralValue = new Number(fcentral.value);
+        let displayBandwith = document.getElementById("displayBandwith")
+        finitial.value = fcentralValue - bandwidthValue / 2;
+        ffinal.value = fcentralValue + bandwidthValue / 2;
+        displayBandwith.textContent = bandwidthValue + " MHz";
       }
     }, true);
 
