@@ -143,15 +143,15 @@ function updateChart(){
 // Carrega após os templates
 (function () {
   setTimeout(function () {
-    var FCENTRAL = 98;
+    var FCENTRAL = 98.25;
     var fcentral = document.getElementById("fcentral");
     fcentral.value = FCENTRAL;
 
-    var BANDWIDTH = 20;
+    var BANDWIDTH = 20.5;
     var bandwidth = document.getElementById("bandwidth");
     bandwidth.value = BANDWIDTH;
 
-    var FINITIAL = 88;
+    var FINITIAL = 87.5;
     var finitial = document.getElementById("finitial");
     finitial.value = FINITIAL;
 

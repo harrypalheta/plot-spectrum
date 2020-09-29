@@ -34,7 +34,7 @@ void setup () {
   }
   Wire.begin();
   Radio.init();
-  frequency_start = 88;
+  frequency_start = 87.5;
   frequency = frequency_start;
   frequency_end = 108;  
   Radio.set_frequency(frequency_start); //On power on go to station ##
@@ -45,15 +45,13 @@ void loop () {
 
  String signal_level,current_freq;
 
-
   if (Radio.read_status(buf) == 1) {
-    current_freq =  floor (Radio.frequency_available (buf) / 100000 + .5) / 10;
+    current_freq =  floor (Radio.frequency_available (buf) / 100000 ) / 10 - .4;
     stereo = Radio.stereo(buf);
     signal_level = Radio.signal_level(buf);
 
     Serial.println(current_freq + ";" + signal_level);
-   
-   // delay (500);
+
   }
    
    frequency += 0.1; 
@@ -64,7 +62,6 @@ void loop () {
 
       frequency = frequency_start;
       Radio.set_frequency(frequency);
-//       /Serial.println("BACK");
 
     }
 
