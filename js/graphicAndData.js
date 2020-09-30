@@ -142,15 +142,24 @@ function updateChart(){
 
 // Carrega após os templates
 (function () {
+
+  function getBandwidth( fi, ff){
+    return ff-fi
+  }
+
+  function getCentralFrequency( fi, ff){
+    return fi + getBandwidth(fi, ff)/2;
+  }
+
+  function getInitialFrequency( fc, bw) {
+    return fc - bw / 2
+  }
+
+  function getFinalFrequency( fc, bw) {
+    return fc + bw / 2
+  }
+
   setTimeout(function () {
-    var FCENTRAL = 98.25;
-    var fcentral = document.getElementById("fcentral");
-    fcentral.value = FCENTRAL;
-
-    var BANDWIDTH = 20.5;
-    var bandwidth = document.getElementById("bandwidth");
-    bandwidth.value = BANDWIDTH;
-
     var FINITIAL = 87.5;
     var finitial = document.getElementById("finitial");
     finitial.value = FINITIAL;
@@ -159,24 +168,34 @@ function updateChart(){
     var ffinal = document.getElementById("ffinal");
     ffinal.value = FFINAL;
 
+    var BANDWIDTH = getBandwidth(FINITIAL, FFINAL);
+    var bandwidth = document.getElementById("bandwidth");
+    bandwidth.value = BANDWIDTH;
+
+    var FCENTRAL = getCentralFrequency(FINITIAL, FFINAL);
+    var fcentral = document.getElementById("fcentral");
+    fcentral.value = FCENTRAL;
+
     finitial.addEventListener("keypress", event => {
       if (event.keyCode === 13) {
-        let bandwidthValue = new Number(bandwidth.value);
         let finitialValue = new Number(event.target.value);
+        let ffinalValue = new Number(ffinal.value);
+        let bandwidthValue = getBandwidth(finitialValue, ffinalValue);
 
-        ffinal.value = finitialValue + bandwidthValue;
-        fcentral.value = finitialValue + bandwidthValue / 2;
+        bandwidth.value = bandwidthValue;
+        fcentral.value = getCentralFrequency(finitialValue,ffinalValue);
         clean()
       }
     }, true);
 
     ffinal.addEventListener("keypress", event => {
       if (event.keyCode === 13) {
-        let bandwidthValue = new Number(bandwidth.value);
+        let finitialValue = new Number(finitial.value);
         let ffinalValue = new Number(event.target.value);
+        let bandwidthValue = getBandwidth(finitialValue, ffinalValue);
 
-        finitial.value = ffinalValue - bandwidthValue;
-        fcentral.value = ffinalValue - bandwidthValue / 2;
+        bandwidth.value = bandwidthValue;
+        fcentral.value = getCentralFrequency(finitialValue,ffinalValue);
         clean()
       }
     }, true);
@@ -187,8 +206,8 @@ function updateChart(){
         let fcentralValue = new Number(event.target.value);
         let displayFCentral = document.getElementById("displayFCentral")
         displayFCentral.textContent = event.target.value + " MHz";
-        finitial.value = fcentralValue - bandwidthValue / 2;
-        ffinal.value = fcentralValue + bandwidthValue / 2;
+        finitial.value = getInitialFrequency(fcentralValue, bandwidthValue);
+        ffinal.value = getFinalFrequency(fcentralValue, bandwidthValue);
         clean()
       }
     }, true);
@@ -198,8 +217,8 @@ function updateChart(){
         let bandwidthValue = new Number(event.target.value);
         let fcentralValue = new Number(fcentral.value);
         let displayBandwith = document.getElementById("displayBandwith")
-        finitial.value = fcentralValue - bandwidthValue / 2;
-        ffinal.value = fcentralValue + bandwidthValue / 2;
+        finitial.value = getInitialFrequency(fcentralValue, bandwidthValue);
+        ffinal.value = getFinalFrequency(fcentralValue, bandwidthValue);
         displayBandwith.textContent = bandwidthValue + " MHz";
         clean()
       }
