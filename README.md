@@ -69,16 +69,13 @@ npm run rebuild
 ## Permission to Serial Port
 
 ```sh
-sudo usermod -a -G tty harry
+sudo usermod -a -G tty $USER
 ```
 
 ```sh
-sudo usermod -a -G dialout harry
+sudo usermod -a -G dialout $USER
 ```
 
 ```sh
 sudo chmod a+rw /dev/ttyACM0
-
-## License
-
-[CC0 1.0 (Public Domain)](LICENSE.md)
+```
