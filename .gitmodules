@@ -1,0 +1,3 @@
+[submodule "arduino/libraries/TEA5767"]
+	path = arduino/libraries/TEA5767
+	url = https://github.com/andykarpov/TEA5767.git
